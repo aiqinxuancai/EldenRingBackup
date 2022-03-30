@@ -14,11 +14,8 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
 
             if (Directory.Exists(eldenRingPath))
             {
-                var task = StartBackup(eldenRingPath);
-                task.Start();
-
-                var taskWithProcess = StartProcessBackup(eldenRingPath);
-                taskWithProcess.Start();
+                Task.Run(() => { StartBackup(eldenRingPath); });
+                Task.Run(() => { StartProcessBackup(eldenRingPath); });
             }
             else
             {
@@ -29,7 +26,7 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
         }
 
 
-        private static async Task<bool> StartProcessBackup(string path)
+        private static void StartProcessBackup(string path)
         {
             Console.WriteLine($"开始检测游戏关闭...");
             while (true)
@@ -46,11 +43,10 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
                 }
                 Thread.Sleep(10 * 1000);
             }
-            return true;
         }
 
 
-        private static async Task<bool> StartBackup(string path)
+        private static void StartBackup(string path)
         {
             Console.WriteLine($"开始检测文件夹更改 {path}");
             while (true)
@@ -63,7 +59,6 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
                 }
                 Thread.Sleep(3 * 60 * 1000);
             }
-            return true;
         }
 
         /// <summary>
