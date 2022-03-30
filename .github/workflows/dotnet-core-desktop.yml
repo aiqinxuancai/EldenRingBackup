@@ -1,0 +1,30 @@
+name: .NET Core Desktop
+
+on: 
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    name: Dotnet Build
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.*'
+      - run: dotnet publish -c Release --runtime win-x64
+      - run: powershell Compress-Archive -Path $env:GITHUB_WORKSPACE\EldenRingBackup\bin\Release\net6.0\win-x64\publish -DestinationPath .\EldenRingBackup.zip
+      - name: Create a Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "EldenRingBackup.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
+#       - name: Create a Release CMD
+#         uses: ncipollo/release-action@v1
+#         with:
+#           artifacts: "DotNetDllPathPatcherCMD.zip"
+#           token: ${{ secrets.GITHUB_TOKEN }}
