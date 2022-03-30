@@ -61,7 +61,7 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
                     BackupDir(path);
                     UpdateWrite(path);
                 }
-                Thread.Sleep(60 * 1000);
+                Thread.Sleep(3 * 60 * 1000);
             }
             return true;
         }
