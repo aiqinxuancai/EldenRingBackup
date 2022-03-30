@@ -9,21 +9,16 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
         {
             Console.WriteLine("Start");
 
-
             string applicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string eldenRingPath = Path.Combine(applicationData, "EldenRing");
 
-
-
             if (Directory.Exists(eldenRingPath))
             {
-
                 var task = StartBackup(eldenRingPath);
                 task.Start();
 
                 var taskWithProcess = StartProcessBackup(eldenRingPath);
                 taskWithProcess.Start();
-
             }
             else
             {
