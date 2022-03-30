@@ -7,14 +7,17 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Start");
 
 
             string applicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string eldenRingPath = Path.Combine(applicationData, "EldenRing");
 
+
+
             if (Directory.Exists(eldenRingPath))
             {
+
                 var result = StartBackup(eldenRingPath);
                 result.Start();
                 
@@ -32,7 +35,7 @@ namespace EldenRingBackup // Note: actual namespace depends on the project name.
 
         private static async Task<bool> StartBackup(string path)
         {
-            Console.WriteLine("开始检测文件夹更改");
+            Console.WriteLine($"开始检测文件夹更改 {path}");
             while (true)
             {
                 if (CheckWrite(path))
